@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+
+import MyTable from './pages/MyTable';
+import { themeWT } from './style/theme';
 import './App.css';
+
+const theme = createTheme(themeWT);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/table" />
+            </Route>
+            <Route path="/table">
+              <MyTable />
+            </Route>
+          </Switch>
+        </ThemeProvider>
+      </div>
   );
 }
 
