@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TablePagination } from '@material-ui/core';
+import { withStyles, TablePagination } from '@material-ui/core';
 
 const Pagination = ({ rows, onPage }) => {
   const pageLength = [5, 10, 25]
@@ -17,8 +17,17 @@ const Pagination = ({ rows, onPage }) => {
     onPage(page, rowsPerPage)
   }, [onPage, page, rowsPerPage]);
 
+  const StyledPagination = withStyles((theme) => ({
+    root: {
+      color: theme.palette.text.secondary
+    },
+    actions: {
+      color: theme.palette.primary.main
+    }
+  }))(TablePagination);
+
   return (
-    <TablePagination
+    <StyledPagination
         rowsPerPageOptions={pageLength}
         component="div"
         count={rows}

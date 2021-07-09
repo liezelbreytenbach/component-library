@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { theme } from '../../utils/theme';
+import { calculateRem } from '../../utils/helpers';
 
 const StyledDisclaimer = styled.span`
-  color: #9A9DA7;
+  color: ${theme.palette.grey.main};
   font-style: italic;
-  font-size: 12px;
+  font-size: ${calculateRem(12)};
 `;
 
 export default function Disclaimer({className, children}) {

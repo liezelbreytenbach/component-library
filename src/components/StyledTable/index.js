@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
-import { withStyles, Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@material-ui/core";
+import { Paper, TableContainer, Table, TableHead, TableBody, TableRow } from "@material-ui/core";
 
-import CellComponent from './CellComponent';
 import Pagination from './Pagination';
+import { StyledCell, StyledHeadCell, StyledBodyRow } from './StyledComponents';
 
 export default function StyledTable ({ labels, rows }) {
 
@@ -11,29 +11,23 @@ export default function StyledTable ({ labels, rows }) {
   const pageHandler = useCallback((page, pageRows) => {
     setPageSlice([page * pageRows, page * pageRows + pageRows])
   }, []);
-
-  const StyledTableCell = withStyles(() => ({
-    head: {
-      fontWeight: 'bold'
-    },
-  }))(TableCell);
-
+  
   return (
     <Paper>
       <TableContainer>
-        <Table aria-label="simple table">
+        <Table aria-label="select table">
           <TableHead>
             <TableRow>
               {labels.map(label => (
-                <StyledTableCell key={label}>{label}</StyledTableCell>
+                <StyledHeadCell key={label}>{label}</StyledHeadCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.slice(...pageSlice).map((row) => (
-              <TableRow key={row.id}>
-                {row.cells.map((cell, index) => <CellComponent key={`${row.id}${index}`} cell={cell} />)}
-              </TableRow>
+              <StyledBodyRow key={row.id}>
+                {row.cells.map((cell, index) => <StyledCell key={`${row.id}${index}`}>{cell}</StyledCell>)}
+              </StyledBodyRow>
             ))}
           </TableBody>
         </Table>
