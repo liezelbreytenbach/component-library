@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles, TablePagination } from '@material-ui/core';
+import { StyledPagination } from './StyledComponents';
+
+let isLoaded = false;
 
 const Pagination = ({ rows, onPage }) => {
   const pageLength = [5, 10, 25]
@@ -14,17 +16,12 @@ const Pagination = ({ rows, onPage }) => {
   };
 
   useEffect(() => {
-    onPage(page, rowsPerPage)
-  }, [onPage, page, rowsPerPage]);
-
-  const StyledPagination = withStyles((theme) => ({
-    root: {
-      color: theme.palette.text.secondary
-    },
-    actions: {
-      color: theme.palette.primary.main
+    if (!isLoaded) {
+      isLoaded = true;
+    } else {
+      onPage(page, rowsPerPage)
     }
-  }))(TablePagination);
+  }, [onPage, page, rowsPerPage]);
 
   return (
     <StyledPagination

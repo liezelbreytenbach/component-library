@@ -1,4 +1,10 @@
 import { createTheme } from '@material-ui/core';
+import { calculateRem } from './helpers';
+
+const fonts = {
+  main: "'Open Sans', sans-serif",
+  titles: "'Poppins', sans-serif"
+}
 
 export const themeWT = {
   palette: {
@@ -12,7 +18,20 @@ export const themeWT = {
     info: { light: '#dce1f1', main: '#506EDE' },
     action: { hover: '#12277D0D'},
     divider: '#00000014',
-  }
+  },
+  typography: {
+    fontFamily: fonts.main,
+    h1: {fontFamily: fonts.titles, fontSize: calculateRem(24), fontWeight: 500},
+    h2: {fontFamily: fonts.titles, fontSize: calculateRem(21), fontWeight: 400},
+  },
 }
 
 export const theme = createTheme(themeWT);
+
+export const tagStates = {
+  inProgress: {text: 'In-Progress', palette: theme.palette.info, message: ''},
+  queued:  {text: 'Queued', palette: theme.palette.warning, message: ''},
+  ready: {text: 'Ready', palette: theme.palette.success, message: ''},
+  error:  {text: 'Error', palette: theme.palette.warning, message: ''},
+  expired:  {text: 'Expired', palette: theme.palette.grey, message: 'Valid for 9 days'},
+};

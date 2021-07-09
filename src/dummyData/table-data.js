@@ -1,4 +1,5 @@
-import PillTag, { tagStates } from '../components/PillTag';
+import { tagStates } from '../utils/theme';
+import PillTag from '../components/PillTag';
 
 export const dummyLabels = ['File Name', 'Export Date', 'Export Time', 'Export Type', 'Status', 'User Name'];
 
