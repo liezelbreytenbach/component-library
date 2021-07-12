@@ -11,7 +11,7 @@ export const StyledCell = withStyles((theme) => ({
 
 export const StyledHeadCell = withStyles(() => ({
   root: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 }))(StyledCell);
 
