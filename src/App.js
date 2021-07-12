@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import Layout from './components/Layout';
 import MyTable from './pages/MyTable';
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-        <ThemeProvider theme={theme}>
+        <StyledThemeProvider theme={theme}>
           <Layout>
             <Switch>
               <Route path="/" exact>
@@ -21,7 +21,7 @@ function App() {
               </Route>
             </Switch>
           </Layout>
-        </ThemeProvider>
+        </StyledThemeProvider>
       </div>
   );
 }

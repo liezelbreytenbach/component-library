@@ -1,4 +1,3 @@
-import { createTheme } from '@material-ui/core';
 import { calculateRem } from './helpers';
 
 const fonts = {
@@ -6,9 +5,9 @@ const fonts = {
   titles: "'Poppins', sans-serif"
 }
 
-export const themeWT = {
+export const theme = {
   palette: {
-    common: {offwhite: '#FAFBFC', hover: '#12277D0D'},
+    common: {offWhite: '#FAFBFC', hover: '#12277D0D'},
     text: {primary: '#181C25E6', secondary: '#181C25B3', headers: '#181C25'},
     primary: { main: '#12277D' },
     grey: { light: '#9A9DA726', main: '#9A9DA7', dark: '#181C25'},
@@ -21,12 +20,14 @@ export const themeWT = {
   },
   typography: {
     fontFamily: fonts.main,
-    h1: {fontFamily: fonts.titles, fontSize: calculateRem(24), fontWeight: 500},
-    h2: {fontFamily: fonts.titles, fontSize: calculateRem(21), fontWeight: 400},
+    fontFamilyTitles: fonts.titles,
+    h1: {fontSize: calculateRem(24), fontWeight: 500, gutterBottom: calculateRem(39)},
+    h2: {fontSize: calculateRem(21), fontWeight: 400},
   },
+  spacing: {
+    xSpacing: calculateRem(12),
+  }
 }
-
-export const theme = createTheme(themeWT);
 
 export const tagStates = {
   inProgress: {text: 'In-Progress', palette: theme.palette.info, message: ''},

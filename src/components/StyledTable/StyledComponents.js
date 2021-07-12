@@ -1,33 +1,32 @@
-import { withStyles, TableRow, TableCell, TablePagination } from "@material-ui/core";
-import { calculateRem } from '../../utils/helpers';
+import styled from 'styled-components';
+import { TableRow, TableCell, TablePagination } from "@material-ui/core";
 
-export const StyledCell = withStyles((theme) => ({
-  root: {
-    borderBottomColor: theme.palette.divider,
-    paddingTop: calculateRem(12),
-    paddingBottom: calculateRem(12),
+export const StyledCell = styled(TableCell)`
+  && {
+    color: ${props => props.theme.palette.text.primary};
+    border-bottom-color: ${props => props.theme.palette.divider};
+    padding-top: ${props => props.theme.spacing.xSpacing};
+    padding-bottom: ${props => props.theme.spacing.xSpacing};
   }
-}))(TableCell);
+`;
 
-export const StyledHeadCell = withStyles(() => ({
-  root: {
-    fontWeight: 'bold',
-  },
-}))(StyledCell);
+export const StyledHeadCell = styled(StyledCell)`
+  && {
+    font-weight: bold;
+  }
+`;
 
-export const StyledBodyRow = withStyles((theme) => ({
-  root: {
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover,
+export const StyledBodyRow = styled(TableRow)`
+  &&:hover {
+    background-color: ${props => props.theme.palette.action.hover};
+  }
+`;
+
+export const StyledPagination = styled(TablePagination)`
+  && {
+    color: ${props => props.theme.palette.text.secondary};
+    button:not([class*="-disabled"]) {
+      color: ${props => props.theme.palette.primary.main};
     }
   }
-}))(TableRow);
-
-export const StyledPagination = withStyles((theme) => ({
-  root: {
-    color: theme.palette.text.secondary
-  },
-  actions: {
-    color: theme.palette.primary.main
-  }
-}))(TablePagination);
+`;
