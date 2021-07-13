@@ -36,6 +36,9 @@ export const StyledSelectBox = styled(FormControl)`
       padding-top: ${props => props.theme.spacing.xSpacing};
       padding-bottom: ${props => props.theme.spacing.xSpacing};
     }
+    .MuiSelect-select:focus {
+      background-color: transparent;
+    }
     .MuiInputBase-root:hover fieldset,
     .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: ${props => props.theme.palette.primary.main};
@@ -57,7 +60,7 @@ export const TightCheckBox = styled(Checkbox)`
       background-color: transparent;
     }
     &:hover,
-    &.Mui-checked {
+    &.MuiIconButton-root.Mui-checked {
       color: ${props => props.theme.palette.primary.main};
     }
   }

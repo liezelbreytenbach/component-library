@@ -7,6 +7,13 @@ export const StyledCell = styled(TableCell)`
     border-bottom-color: ${props => props.theme.palette.divider};
     padding-top: ${props => props.theme.spacing.xSpacing};
     padding-bottom: ${props => props.theme.spacing.xSpacing};
+    .MuiIconButton-root {
+      color: ${props => props.theme.palette.grey.main};
+      &:hover {
+        color: ${props => props.theme.palette.primary.main};
+        background-color: transparent;
+      }
+    }
   }
 `;
 

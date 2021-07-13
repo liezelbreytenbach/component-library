@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyledPagination } from './StyledComponents';
 
-let isLoaded = false;
-
 const Pagination = ({ rows, onPage }) => {
   const pageLength = [5, 10, 25]
   const [page, setPage] = useState(0);
@@ -16,11 +14,7 @@ const Pagination = ({ rows, onPage }) => {
   };
 
   useEffect(() => {
-    if (!isLoaded) {
-      isLoaded = true;
-    } else {
-      onPage(page, rowsPerPage)
-    }
+    onPage(page, rowsPerPage)
   }, [onPage, page, rowsPerPage]);
 
   return (
