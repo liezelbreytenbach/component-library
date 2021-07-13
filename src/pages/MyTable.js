@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, IconButton } from '@material-ui/core';
+import { GetApp } from '@material-ui/icons';
 import styled from 'styled-components';
 
 import Title from '../components/Title';
@@ -33,15 +34,17 @@ export default function MyTable() {
         <Grid item>
           <Title variant="h2">{selectedMsg}</Title>
         </Grid>
-        <Grid item sm="6">
-          <Grid container justifyContent="flex-end">
+        <Grid item sm={6}>
+          <Grid container justifyContent="flex-end" spacing={2}>
             <Grid item>
-              Download
+              <IconButton>
+                <GetApp />
+              </IconButton>
             </Grid>
-            <Grid item sm="4">
+            <Grid item sm={4}>
               <StyledSelect />
             </Grid>
-            <Grid item sm="4">
+            <Grid item sm={4}>
               <StyledSearch />
             </Grid>
           </Grid>

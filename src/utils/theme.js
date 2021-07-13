@@ -7,7 +7,7 @@ const fonts = {
 
 export const theme = {
   palette: {
-    common: {offWhite: '#FAFBFC', hover: '#12277D0D'},
+    common: {white: '#fff', offWhite: '#FAFBFC', border: '#181C251F'},
     text: {primary: '#181C25E6', secondary: '#181C25B3', headers: '#181C25'},
     primary: { main: '#12277D' },
     grey: { light: '#9A9DA726', main: '#9A9DA7', dark: '#181C25'},
@@ -33,6 +33,6 @@ export const tagStates = {
   inProgress: {text: 'In-Progress', palette: theme.palette.info, message: ''},
   queued:  {text: 'Queued', palette: theme.palette.warning, message: ''},
   ready: {text: 'Ready', palette: theme.palette.success, message: ''},
-  error:  {text: 'Error', palette: theme.palette.warning, message: ''},
+  error:  {text: 'Error', palette: theme.palette.error, message: ''},
   expired:  {text: 'Expired', palette: theme.palette.grey, message: 'Valid for 9 days'},
 };
