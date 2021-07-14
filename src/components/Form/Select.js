@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { InputLabel, Select, MenuItem} from '@material-ui/core';
-import { StyledSelectBox } from './StyledComponents';
+import { InputLabel, Select as MuiSelect, MenuItem} from '@material-ui/core';
+import { StyledSelectBox } from './styledComponents';
 
-export default function StyledSelect({id, label, options, onChange}) {
+export default function Select({id, label, options, onChange}) {
   const [selected, setSelected] = useState('');
 
   const selectHandler = event => {
@@ -13,7 +13,7 @@ export default function StyledSelect({id, label, options, onChange}) {
   return (
     <StyledSelectBox variant="outlined">
         <InputLabel id={`${id}-label`}>{label}</InputLabel>
-        <Select
+        <MuiSelect
           labelId={`${id}-label`}
           id={id}
           value={selected}
@@ -21,7 +21,7 @@ export default function StyledSelect({id, label, options, onChange}) {
         >
           <MenuItem value=""><em>{label}</em></MenuItem>
           {options.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)}
-        </Select>
+        </MuiSelect>
       </StyledSelectBox>
   );
 }

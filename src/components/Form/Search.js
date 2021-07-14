@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { InputAdornment } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
-import { StyledTextField } from './StyledComponents';
+import { Search as SearchIcon } from '@material-ui/icons';
+import { StyledTextField } from './styledComponents';
 
-export default function StyledSearch({onChange}) {
+export default function Search({onChange}) {
   const [query, setQuery] = useState('');
   
   const searchHandler = event => {
@@ -14,7 +14,7 @@ export default function StyledSearch({onChange}) {
   return (
     <StyledTextField placeholder="Search" variant="outlined" value={query} onChange={searchHandler} InputProps={{
       startAdornment: (
-        <InputAdornment position="start"><Search /></InputAdornment>
+        <InputAdornment position="start"><SearchIcon /></InputAdornment>
       ),
     }} />
   )

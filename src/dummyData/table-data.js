@@ -2,6 +2,7 @@ import { IconButton } from "@material-ui/core";
 import { GetApp, Replay } from "@material-ui/icons";
 import { tagStates } from "../utils/theme";
 import PillTag from "../components/PillTag";
+import PasswordButton from '../components/PasswordButton';
 
 export const dummyLabels = [
 	{
@@ -63,7 +64,7 @@ export const dummyRows = [
 			"Form Responses",
 			<PillTag type={tagStates.ready} />,
 			"Jane Doe",
-			"",
+			<PasswordButton password="654321" />,
 			<DownloadButton />,
 		],
 	},
@@ -141,7 +142,7 @@ export const dummyRows = [
 			"Form Images",
 			<PillTag type={tagStates.ready} />,
 			"Jane Doe",
-			"",
+			<PasswordButton password="543210" />,
 			<DownloadButton />,
 		],
 	},

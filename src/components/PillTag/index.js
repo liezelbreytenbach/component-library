@@ -1,12 +1,6 @@
 import { Fragment } from 'react';
-import styled from 'styled-components';
 import { Chip } from '@material-ui/core';
-import Disclaimer from '../Disclaimer';
-
-const PillTagDisclaimer = styled(Disclaimer)`
-  margin-left: 10px;
-  display: inline-block;
-`;
+import { PillTagDisclaimer } from './styledComponents';
 
 export default function PillTag({ type }) {
   return (

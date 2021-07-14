@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { TableRow, TableCell, TablePagination } from "@material-ui/core";
+import { Grid, TableRow, TableCell, TablePagination } from "@material-ui/core";
+import { calculateRem } from '../../../utils/helpers';
+
+export const StyledTableTop = styled(Grid)`
+  padding-bottom: ${calculateRem(18)};
+`;
 
 export const StyledCell = styled(TableCell)`
   && {
@@ -13,6 +18,10 @@ export const StyledCell = styled(TableCell)`
         color: ${props => props.theme.palette.primary.main};
         background-color: transparent;
       }
+    }
+    &.tight {
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 `;
@@ -35,5 +44,12 @@ export const StyledPagination = styled(TablePagination)`
     button:not([class*="-disabled"]) {
       color: ${props => props.theme.palette.primary.main};
     }
+  }
+`;
+
+export const StyledEmptyTable = styled.p`
+  && {
+    text-align: center;
+    padding: ${calculateRem(30)};
   }
 `;

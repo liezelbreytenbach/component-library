@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { calculateRem } from '../../utils/helpers';
+import { calculateRem } from '../../../utils/helpers';
 
 export const StyledLayout = styled.main`
   background-color: ${props => props.theme.palette.common.offWhite};

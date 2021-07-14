@@ -1,4 +1,4 @@
-import { StyledTitle } from './StyledComponents';
+import { StyledTitle } from './styledComponents';
 
 export default function Title({variant, component, gutterBottom, children}) {
   let props = {};

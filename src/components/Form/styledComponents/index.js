@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Checkbox, TextField, FormControl } from '@material-ui/core';
+import styled from 'styled-components';
 
 export const StyledTextField = styled(TextField)`
   & {
@@ -47,12 +47,13 @@ export const StyledSelectBox = styled(FormControl)`
       color: ${props => props.theme.palette.primary.main};
     }
     .MuiInputLabel-outlined {
+      background-color: ${props => props.theme.palette.common.white};
       transform: translate(14px, 13px) scale(1);
     }
   }
 `;
 
-export const TightCheckBox = styled(Checkbox)`
+export const TightCheckbox = styled(Checkbox)`
   && {
     padding: 0;
     color: ${props => props.theme.palette.grey.main};
