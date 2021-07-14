@@ -1,5 +1,5 @@
-import { StyledLayout } from './styledComponents';
+import { Main } from './styledComponents';
 
 export default function Layout ({ className, children }) {
-  return <StyledLayout className={className}>{children}</StyledLayout>
+  return <Main className={className}>{children}</Main>
 }

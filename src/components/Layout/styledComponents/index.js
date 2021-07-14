@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { calculateRem } from '../../../utils/helpers';
 
-export const StyledLayout = styled.main`
+export const Main = styled.main`
   background-color: ${props => props.theme.palette.common.offWhite};
   min-height: 100vh;
   padding: ${calculateRem(30)};

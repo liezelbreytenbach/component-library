@@ -1,5 +1,5 @@
-import { StyledEmptyTable } from './styledComponents';
+import { EmptyTableContainer } from './styledComponents';
 
 export default function EmptyTable() {
-  return <StyledEmptyTable>No items available.</StyledEmptyTable>
+  return <EmptyTableContainer>No items available.</EmptyTableContainer>
 }

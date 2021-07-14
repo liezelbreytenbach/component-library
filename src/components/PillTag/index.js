@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { Chip } from '@material-ui/core';
-import { PillTagDisclaimer } from './styledComponents';
+import { Disclaimer } from './styledComponents';
 
-export default function PillTag({ type }) {
+export default function PillTag({ label, palette, message }) {
   return (
     <Fragment>
-      <Chip label={type.text} style={{backgroundColor: type.palette.light, color: type.palette.main}} size="small" />
-      {type.message !== '' && <PillTagDisclaimer>{type.message}</PillTagDisclaimer>}
+      <Chip label={label} style={{backgroundColor: palette.light, color: palette.main}} size="small" />
+      {message !== '' && <Disclaimer>{message}</Disclaimer>}
     </Fragment>
   );
 };

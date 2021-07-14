@@ -1,7 +1,7 @@
-import { Checkbox, TextField, FormControl } from '@material-ui/core';
+import { Checkbox, TextField as MuiTextField, FormControl } from '@material-ui/core';
 import styled from 'styled-components';
 
-export const StyledTextField = styled(TextField)`
+export const TextField = styled(MuiTextField)`
   & {
     background-color: ${props => props.theme.palette.common.white};
     input {
@@ -24,7 +24,7 @@ export const StyledTextField = styled(TextField)`
   }
 `;
 
-export const StyledSelectBox = styled(FormControl)`
+export const SelectField = styled(FormControl)`
   & {
     width: 100%;
     background-color: ${props => props.theme.palette.common.white};

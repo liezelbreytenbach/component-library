@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyledPagination } from './styledComponents';
+import { PaginationContainer } from './styledComponents';
 
 const Pagination = ({ rows, onPage }) => {
   const pageLength = [5, 10, 25]
@@ -18,7 +18,7 @@ const Pagination = ({ rows, onPage }) => {
   }, [onPage, page, rowsPerPage]);
 
   return (
-    <StyledPagination
+    <PaginationContainer
         rowsPerPageOptions={pageLength}
         component="div"
         count={rows}

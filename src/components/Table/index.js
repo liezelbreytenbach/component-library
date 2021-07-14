@@ -5,7 +5,7 @@ import Checkbox from '../Form/Checkbox';
 import TableTop from './TableTop';
 import Pagination from './Pagination';
 import EmptyTable from './EmptyTable';
-import { StyledCell, StyledHeadCell, StyledBodyRow } from './styledComponents';
+import { Cell, HeadCell, BodyRow } from './styledComponents';
 import { getCellText } from '../../utils/helpers';
 
 export default function Table ({ labels, rows, hasSearch, filters }) {
@@ -91,32 +91,32 @@ export default function Table ({ labels, rows, hasSearch, filters }) {
             <MuiTable aria-label="select table">
               <TableHead>
                 <TableRow>
-                  {checkTable && <StyledHeadCell>
+                  {checkTable && <HeadCell>
                     <Checkbox checked={checkAll} onChange={checkAllHandler} tight ariaLabel="Select All" />
-                  </StyledHeadCell>}
+                  </HeadCell>}
                   {labels.map(label => (
-                    <StyledHeadCell key={label.id}>{label.text}</StyledHeadCell>
+                    <HeadCell key={label.id}>{label.text}</HeadCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {matchedRows.slice(...pageSlice).map((row) => (
-                  <StyledBodyRow key={row.id}>
-                    {checkTable && <StyledCell>
+                  <BodyRow key={row.id}>
+                    {checkTable && <Cell>
                       <Checkbox 
                         checked={checkedItems.includes(row.id) || false} 
                         onChange={checkSingleHandler.bind(null, row.id)} 
                         tight ariaLabel="Select Item" 
                       />
-                    </StyledCell>}
+                    </Cell>}
                     {row.cells.map((cell, index) => {
                       let className = '';
                       if (typeof cell !== 'string' && (cell.type.name.includes('Button') )) {
                         className = 'tight';
                       }
-                      return <StyledCell key={`${row.id}${index}`} className={className}>{cell}</StyledCell>
+                      return <Cell key={`${row.id}${index}`} className={className}>{cell}</Cell>
                     })}
-                  </StyledBodyRow>
+                  </BodyRow>
                 ))}
               </TableBody>
             </MuiTable>

@@ -6,7 +6,7 @@ export const StyledTableTop = styled(Grid)`
   padding-bottom: ${calculateRem(18)};
 `;
 
-export const StyledCell = styled(TableCell)`
+export const Cell = styled(TableCell)`
   && {
     color: ${props => props.theme.palette.text.primary};
     border-bottom-color: ${props => props.theme.palette.divider};
@@ -26,19 +26,19 @@ export const StyledCell = styled(TableCell)`
   }
 `;
 
-export const StyledHeadCell = styled(StyledCell)`
+export const HeadCell = styled(Cell)`
   && {
     font-weight: bold;
   }
 `;
 
-export const StyledBodyRow = styled(TableRow)`
+export const BodyRow = styled(TableRow)`
   &&:hover {
     background-color: ${props => props.theme.palette.action.hover};
   }
 `;
 
-export const StyledPagination = styled(TablePagination)`
+export const PaginationContainer = styled(TablePagination)`
   && {
     color: ${props => props.theme.palette.text.secondary};
     button:not([class*="-disabled"]) {
@@ -47,7 +47,7 @@ export const StyledPagination = styled(TablePagination)`
   }
 `;
 
-export const StyledEmptyTable = styled.p`
+export const EmptyTableContainer = styled.p`
   && {
     text-align: center;
     padding: ${calculateRem(30)};
