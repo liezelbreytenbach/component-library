@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
-// import { GetApp, Replay } from "@material-ui/icons";
 
 import Title from '../Title';
 import IconButton from '../IconButton';

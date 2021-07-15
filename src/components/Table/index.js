@@ -17,11 +17,11 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
   const [pageSlice, setPageSlice] = useState([0, pageOptions[0]]);
   const [filterOptions, setFiltersOptions] = useState('');
   const [search, setSearch] = useState('');
-  const [matchedRows, setMatchedRows] = useState(rows);
   const [checkAll, setCheckAll] = useState(false);
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [matchedRows, setMatchedRows] = useState(rows);
   const [checkboxView, setCheckboxView] = useState(false);
   const [bulkAction, setBulkAction] = useState(bulkInitialState)
+  let [checkedItems, setCheckedItems] = useState([]);
 
   let filterBoxes;
   if (filterKeys && filterKeys.length > 0) {
@@ -85,8 +85,8 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
     })
     setMatchedRows(matches);
     setPage(0);
-    setCheckAll(false);
-    setCheckedItems([]);
+    // setCheckAll(false);
+    // setCheckedItems([]);
     
   }, [labels, rows, search, filterOptions]);
 
