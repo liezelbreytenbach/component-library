@@ -1,8 +1,8 @@
-import { IconButton } from "@material-ui/core";
-import { GetApp, Replay } from "@material-ui/icons";
 import { tagStates } from "../utils/theme";
+import { iconLibrary } from "../utils/icons";
 import PillTag from "../components/PillTag";
 import PasswordButton from '../components/PasswordButton';
+import IconButton from "../components/IconButton";
 
 export const dummyLabels = [
 	{
@@ -39,21 +39,6 @@ export const dummyLabels = [
 	},
 ];
 
-const DownloadButton = () => {
-	return (
-		<IconButton size="small">
-			<GetApp />
-		</IconButton>
-	);
-};
-const ReloadButton = () => {
-	return (
-		<IconButton size="small">
-			<Replay />
-		</IconButton>
-	);
-};
-
 export const dummyRows = [
 	{
 		id: "dfbsjk",
@@ -65,7 +50,7 @@ export const dummyRows = [
 			<PillTag {...tagStates.ready} />,
 			"Jane Doe",
 			<PasswordButton password="654321" />,
-			<DownloadButton />,
+			<IconButton type={iconLibrary.download} />,
 		],
 	},
 	{
@@ -104,7 +89,7 @@ export const dummyRows = [
 			<PillTag {...tagStates.expired} />,
 			"Jane Doe",
 			"",
-			<ReloadButton />,
+      <IconButton type={iconLibrary.relaod} />,
 		],
 	},
 	{
@@ -130,7 +115,7 @@ export const dummyRows = [
 			<PillTag {...tagStates.expired} />,
 			"Jane Doe",
 			"",
-			<ReloadButton />,
+			<IconButton type={iconLibrary.relaod} />,
 		],
 	},
 	{
@@ -143,7 +128,7 @@ export const dummyRows = [
 			<PillTag {...tagStates.ready} />,
 			"Jane Doe",
 			<PasswordButton password="543210" />,
-			<DownloadButton />,
+			<IconButton type={iconLibrary.download} />,
 		],
 	},
 ];

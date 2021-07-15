@@ -13,12 +13,8 @@ function App() {
         <StyledThemeProvider theme={theme}>
           <Layout>
             <Switch>
-              <Route path="/" exact>
-                <Redirect to="/table" />
-              </Route>
-              <Route path="/table">
-                <MyTable />
-              </Route>
+              <Route path="/table" component={MyTable} />
+              <Redirect to="/table" />
             </Switch>
           </Layout>
         </StyledThemeProvider>

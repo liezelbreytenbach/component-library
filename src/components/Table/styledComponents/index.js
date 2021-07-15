@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid, TableRow, TableCell, TablePagination } from "@material-ui/core";
+import { Paper, Grid, TableRow, TableCell, TablePagination } from "@material-ui/core";
 import { calculateRem } from '../../../utils/helpers';
 
 export const StyledTableTop = styled(Grid)`
@@ -14,10 +14,6 @@ export const Cell = styled(TableCell)`
     padding-bottom: ${props => props.theme.spacing.xSpacing};
     .MuiIconButton-root {
       color: ${props => props.theme.palette.grey.main};
-      &:hover {
-        color: ${props => props.theme.palette.primary.main};
-        background-color: transparent;
-      }
     }
     &.tight {
       padding-top: 0;
@@ -47,7 +43,7 @@ export const PaginationContainer = styled(TablePagination)`
   }
 `;
 
-export const EmptyTableContainer = styled.p`
+export const EmptyTableContainer = styled(Paper)`
   && {
     text-align: center;
     padding: ${calculateRem(30)};

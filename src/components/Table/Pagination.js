@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
 import { PaginationContainer } from './styledComponents';
 
-const Pagination = ({ rows, onPage }) => {
-  const pageLength = [5, 10, 25]
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(pageLength[0]);
+const Pagination = ({ count, page, pageOptions, rowsPerPage, onPage, onPageLength }) => {
 
-  const handleChangePage = (event, newPage) => setPage(newPage);
+  const handleChangePage = (event, newPage) => onPage(newPage);
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    onPageLength(parseInt(event.target.value, 10));
+    onPage(0);
   };
-
-  useEffect(() => {
-    onPage(page, rowsPerPage)
-  }, [onPage, page, rowsPerPage]);
 
   return (
     <PaginationContainer
-        rowsPerPageOptions={pageLength}
+        rowsPerPageOptions={pageOptions}
         component="div"
-        count={rows}
+        count={count}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
