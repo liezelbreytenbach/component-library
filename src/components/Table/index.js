@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useCallback } from 'react';
 import { Paper, TableContainer, Table as MuiTable, TableHead, TableBody, TableRow } from "@material-ui/core";
 
 import Checkbox from '../Form/Checkbox';
@@ -6,27 +6,43 @@ import TableTop from './TableTop';
 import Pagination from './Pagination';
 import EmptyTable from './EmptyTable';
 import { Cell, HeadCell, BodyRow } from './styledComponents';
-import { getCellText } from '../../utils/helpers';
+import { getCellText, getCellAction } from '../../utils/helpers';
+
+const rowsPerPageOptions = [5, 10, 25];
+const bulkInitialState = { count: 0, type: "" };
+  
+let isLoaded = false;
 
 export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
-  const pageOptions = [5, 10, 25];
-  const bulkInitialState = { count: 0, type: "" };
 
-  const [page, setPage] = useState(0);
-  const [pageRows, setPageRows] = useState(pageOptions[0]);
-  const [pageSlice, setPageSlice] = useState([0, pageOptions[0]]);
+  // console.log('Table Rendering');
+
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageRows, setPageRows] = useState(rowsPerPageOptions[0]);
+  const [pageSlice, setPageSlice] = useState([0, rowsPerPageOptions[0]]);
   const [filterOptions, setFiltersOptions] = useState('');
   const [search, setSearch] = useState('');
-  const [checkAll, setCheckAll] = useState(false);
   const [matchedRows, setMatchedRows] = useState(rows);
+  let [checkedRows, setCheckedRows] = useState([]);
+  const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkboxView, setCheckboxView] = useState(false);
   const [bulkAction, setBulkAction] = useState(bulkInitialState)
-  let [checkedItems, setCheckedItems] = useState([]);
+  
+  // Update Pagination
+  const changePageHandler = useCallback((index) => setPageIndex(index), []);
+  const changePageRowsHanlder = useCallback((length) => setPageRows(length), []);
 
+  // Get New Page Slice
+  useEffect(() => {
+    const newSlice = [pageIndex * pageRows, pageIndex * pageRows + pageRows];
+    if (pageSlice[0] !== newSlice[0] || pageSlice[1] !== newSlice[1]) setPageSlice(newSlice);
+  }, [pageIndex, pageRows, pageSlice]);
+
+  // Get Filter Boxes
   let filterBoxes;
   if (filterKeys && filterKeys.length > 0) {
-    filterBoxes = filterKeys.map(filter => {
-      const colIndex = labels.findIndex(col => col.id === filter);
+    filterBoxes = filterKeys.map(filterKey => {
+      const colIndex = labels.findIndex(col => col.id === filterKey);
       if (colIndex === -1) return undefined;
       return {
         index: colIndex,
@@ -37,70 +53,54 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
     })
   }
 
-  const pageHandler = (page) => setPage(page);
-  const pageLengthHandler = (length) => setPageRows(length);
+  // Update Filters and Search Values
+  const changeFiltersHandler = useCallback((options) => setFiltersOptions(options), []);
+  const changeSearchHandler = useCallback((query) => setSearch(query), []);
 
+  // Apply Filter and Search
   useEffect(() => {
-    const newSlice = [page * pageRows, page * pageRows + pageRows];
-    if (pageSlice[0] !== newSlice[0] || pageSlice[1] !== newSlice[1]) setPageSlice(newSlice);
-  }, [page, pageRows, pageSlice]);
-
-  const checkAllHandler = (checked) => {
-    let list = [];
-    if (checked) list = matchedRows.map(row => row.id);
-    setCheckAll((prevState) => !prevState);
-    setCheckedItems(list);
-  };
-
-  const checkSingleHandler = (id, checked) => {
-    let newList = [...checkedItems];
-    if (checked) {
-      if (!newList.includes(id)) newList.push(id);
-    } else {
-      newList = newList.filter(item => item !== id);
-      setCheckAll(false);
+    if (isLoaded) {
+      const matches = rows.filter(row => {
+        let filterMatch = true;
+        let searchMatch = true;
+        if (filterOptions.length > 0) {
+          let filterMatches = 0;
+          filterOptions.forEach(filter => {
+            if (filter.option === getCellText(row.cells[filter.colIndex])) filterMatches++;
+          })
+          filterMatch = filterOptions.length === filterMatches;
+        }
+        if (search !== '') {
+          const rowText = row.cells.map(cell => getCellText(cell)).join(' ').toLocaleLowerCase();
+          searchMatch = rowText.includes(search.toLocaleLowerCase());
+        }
+        return filterMatch && searchMatch;
+      })
+      setMatchedRows(matches);
+      setPageIndex(0);
     }
-    setCheckedItems(newList);
-  };
-
-  const filterHandler = (options) => setFiltersOptions(options);
-  const searchHandler = (query) => setSearch(query);
-
-  useEffect(() => {
-    const matches = rows.filter(row => {
-      let filterMatch = true;
-      let searchMatch = true;
-      if (filterOptions.length > 0) {
-        let filterMatches = 0;
-        filterOptions.forEach(filter => {
-          if (filter.option === getCellText(row.cells[filter.colIndex])) filterMatches++;
-        })
-        filterMatch = filterOptions.length === filterMatches;
-      }
-      if (search !== '') {
-        const rowText = row.cells.map(cell => getCellText(cell)).join(' ').toLocaleLowerCase();
-        searchMatch = rowText.includes(search.toLocaleLowerCase());
-      }
-      return filterMatch && searchMatch;
-    })
-    setMatchedRows(matches);
-    setPage(0);
-    // setCheckAll(false);
-    // setCheckedItems([]);
     
-  }, [labels, rows, search, filterOptions]);
+  }, [rows, search, filterOptions]);
 
-  const getCellAction = (cell) => {
-    if(typeof cell !== 'string' && 'type' in cell && cell.type.name === 'IconButton') {
-      return cell.props.type;
+  // Get Checked Rows
+  const checkAllHandler = (isChecked) => {
+    let list = isChecked ? matchedRows.map(row => row.id) : [];
+    setIsAllChecked((prevState) => !prevState);
+    setCheckedRows(list);
+  };
+  const checkSingleHandler = (rowId, isChecked) => {
+    let newList = [...checkedRows];
+    if (!isChecked) {
+      newList = newList.filter(item => item !== rowId);
+      setIsAllChecked(false);
+    } else if (!newList.includes(rowId)) {
+      newList.push(rowId);
     }
-    return '';
-  }
+    if (newList.length === matchedRows.length) setIsAllChecked(true);
+    setCheckedRows(newList);
+  };
 
-  const bulkActionHandler = () => {
-    console.log(checkedItems);
-  }
-
+  // Is Bulk Action is Available
   const getBulkActions = () => {
     let tableActions =  matchedRows.map(row => {
       let rowActions = [...new Set(row.cells.map(cell => getCellAction(cell)))];
@@ -118,24 +118,50 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
       setBulkAction(bulkInitialState);
     }
   }
-  
   useEffect(() => {
-    getBulkActions()
+    if (isLoaded) {
+      // console.log('Bulk Actions Show Effect');
+      getBulkActions();
+      // if (isAllChecked) setCheckedRows(matchedRows);
+      // setIsAllChecked(false);
+      // setCheckedRows([]);
+    }
   }, [matchedRows]);
 
+  // Update Bulk Action Values
   useEffect(() => {
-    setBulkAction({
-      ...bulkAction,
-      count: checkedItems.length
-    })
-  }, [checkedItems])
+   if (isLoaded) { 
+      // console.log('Bulk Actions State Effect');
+      setBulkAction({
+        ...bulkAction,
+        count: checkedRows.length
+      })
+    }
+  }, [checkedRows])
+
+  // Bulk Action Triggered
+  const bulkActionHandler = useCallback(() => {
+    console.log(checkedRows, bulkAction.type);
+  }, [checkedRows, bulkAction.type]);
 
   const emptyTable = matchedRows.length === 0;
+
+  useEffect(() => {
+    isLoaded = true;
+  }, []);
 
   return (
     <Fragment>
       
-      <TableTop title={title} hasSearch={hasSearch} onSearch={searchHandler} filterBoxes={filterBoxes} onFilter={filterHandler} bulkAction={bulkAction} onBulkAction={bulkActionHandler} />
+      <TableTop 
+        title={title} 
+        filterBoxes={filterBoxes} 
+        onFilter={changeFiltersHandler} 
+        hasSearch={hasSearch} 
+        onSearch={changeSearchHandler} 
+        bulkAction={bulkAction} 
+        onBulkAction={bulkActionHandler} 
+      />
       
       {!emptyTable && 
         <Paper>
@@ -144,7 +170,7 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
               <TableHead>
                 <TableRow>
                   {checkboxView && <HeadCell>
-                    <Checkbox checked={checkAll} onChange={checkAllHandler} tight ariaLabel="Select All" />
+                    <Checkbox isChecked={isAllChecked} onChange={checkAllHandler} tight ariaLabel="Select All" />
                   </HeadCell>}
                   {labels.map(label => <HeadCell key={label.id}>{label.text}</HeadCell>)}
                 </TableRow>
@@ -154,7 +180,7 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
                   <BodyRow key={row.id}>
                     {checkboxView && <Cell>
                       <Checkbox 
-                        checked={checkedItems.includes(row.id) || false} 
+                        isChecked={checkedRows.includes(row.id) || false} 
                         onChange={checkSingleHandler.bind(null, row.id)} 
                         tight ariaLabel="Select Item" 
                       />
@@ -168,7 +194,14 @@ export default function Table ({ title, labels, rows, hasSearch, filterKeys }) {
               </TableBody>
             </MuiTable>
           </TableContainer>
-          <Pagination count={matchedRows.length} page={page} rowsPerPage={pageRows} pageOptions={pageOptions} onPage={pageHandler} onPageLength={pageLengthHandler} />
+          <Pagination 
+            pageIndex={pageIndex} 
+            rowCount={matchedRows.length} 
+            rowsPerPage={pageRows} 
+            rowsPerPageOptions={rowsPerPageOptions} 
+            onPage={changePageHandler} 
+            onPageRows={changePageRowsHanlder} 
+          />
         </Paper>
       }
 

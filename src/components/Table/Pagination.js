@@ -1,25 +1,28 @@
+import React from 'react';
 import { PaginationContainer } from './styledComponents';
 
-const Pagination = ({ count, page, pageOptions, rowsPerPage, onPage, onPageLength }) => {
+const Pagination = ({ rowCount, pageIndex, rowsPerPageOptions, rowsPerPage, onPage, onPageRows }) => {
 
-  const handleChangePage = (event, newPage) => onPage(newPage);
+  console.log('Pagination Rendering');
+  
+  const pageChangeHandler = (event, newPage) => onPage(newPage);
 
-  const handleChangeRowsPerPage = (event) => {
-    onPageLength(parseInt(event.target.value, 10));
+  const pageRowsChangeHanlder = (event) => {
+    onPageRows(parseInt(event.target.value, 10));
     onPage(0);
   };
 
   return (
     <PaginationContainer
-        rowsPerPageOptions={pageOptions}
-        component="div"
-        count={count}
+        page={pageIndex}
+        count={rowCount}
         rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={rowsPerPageOptions}
+        onPageChange={pageChangeHandler}
+        onRowsPerPageChange={pageRowsChangeHanlder}
+        component="div"
       />
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination);

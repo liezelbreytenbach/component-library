@@ -10,7 +10,7 @@ export default function MyTable() {
 	return (
     <Container>
       <Title gutterBottom>Bulk Exports</Title>
-      <Table title="Export History" labels={dummyLabels} rows={dummyRows} hasSearch filterKeys={["exportType", "status"]} />
+      <Table title="Export History" labels={dummyLabels} rows={dummyRows} filterKeys={["exportType", "status"]} hasSearch />
     </Container>
 	);
 }

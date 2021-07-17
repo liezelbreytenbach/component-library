@@ -7,3 +7,10 @@ export const getCellText = (cell) => {
   }
   return '';
 }
+
+export const getCellAction = (cell) => {
+  if(typeof cell !== 'string' && 'type' in cell && cell.type.name === 'IconButton') {
+    return cell.props.type;
+  }
+  return '';
+}

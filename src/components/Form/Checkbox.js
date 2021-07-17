@@ -1,11 +1,11 @@
 import { Checkbox as MuiCheckbox } from '@material-ui/core';
 import { TightCheckbox } from './styledComponents';
 
-export default function Checkbox ({ checked, onChange, ariaLabel, tight }) {
+export default function Checkbox ({ isChecked, onChange, ariaLabel, tight }) {
 
   const changeHanlder = (event) => onChange(event.target.checked);
   
-  const props = { checked, onChange: changeHanlder };
+  const props = { checked: isChecked, onChange: changeHanlder };
 
   if (ariaLabel) props.inputProps = {'aria-label': ariaLabel}
 
