@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { InputLabel, Select as MuiSelect, MenuItem} from '@material-ui/core';
 import { SelectField } from './styledComponents';
 
@@ -25,3 +26,10 @@ export default function Select({id, label, options, onChange}) {
       </SelectField>
   );
 }
+
+Select.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { InputAdornment } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { TextField } from './styledComponents';
@@ -19,3 +20,7 @@ export default function Search({onChange}) {
     }} />
   )
 }
+
+Search.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
